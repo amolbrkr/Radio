@@ -1,0 +1,16 @@
+//This file is for global styles
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css');
+
+html, body {
+  margin: 0;
+
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: black;
+ 
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
