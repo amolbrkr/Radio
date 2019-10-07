@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <notifications group="all" />
+    <notifications group="all" position="top center"/>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/upload">Upload</router-link> |
