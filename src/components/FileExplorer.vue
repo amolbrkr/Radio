@@ -3,7 +3,7 @@
     <h3 class="subtitle">
       Files in Openload Server
     </h3>
-      <i class="icon material-icons">refresh</i>
+      <i class="icon material-icons" @click="fetchFiles">refresh</i>
     <table class="table">
       <thead>
         <tr>
