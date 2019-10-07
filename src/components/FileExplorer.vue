@@ -1,9 +1,13 @@
 <template>
   <div class="file-explorer">
-    <h3 class="subtitle">
+    <span class="subtitle">
       Files in Openload Server
-    </h3>
-      <i class="icon material-icons" @click="fetchFiles">refresh</i>
+      <button class="button is-rounded" @click="fetchFiles">
+        <span class="icon is-small">
+          <i class="material-icons">refresh</i>
+        </span>
+      </button>
+    </span>
     <table class="table">
       <thead>
         <tr>
