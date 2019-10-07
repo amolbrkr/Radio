@@ -5,9 +5,9 @@
         <h4>Drag & Drop the files here to upload!</h4>
       </div>
 
-      <ul v-for="file in files" :key="file.name">
+      <ul v-for="(file, i) in files" :key="file.name">
         <li>
-          <span>{{ file.name }} | {{ file.size }} KB</span>
+          <span class="is-size-7">{{ i+1 }}. {{ file.name.substring(0, 40) }} | {{ file.size / (1024*1024) }} MB</span>
         </li>
       </ul>
     </div>
@@ -51,44 +51,44 @@ export default {
       })
     },
     uploadFiles () {
+      this.files.forEach((file, idx, obj) => {
       this.uploadStarted = true
-      let formData = new FormData()
-      this.files.forEach((f, i) => {
-        formData.append(`File${i + 1}`, f)
-      })
+        let formData = new FormData()
+        formData.set(file.name, file)
 
-      axios
-        .post(
-          `https://api.openload.co/1/file/ul?login=98fad8486c4f8310&key=oXQWoeUf&httponly=false`
-        )
-        .then(res => {
-          console.log(res.data)
-
-          if (res.data.status === 200) {
-            axios
-              .post(res.data.result.url, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-              })
-              .then(res => {
-                console.log(res)
-                alert('Upload Successful!')
-                this.files = []
-                this.uploadStarted = false
-              })
-              .catch(err => {
-                console.log(err)
-                this.uploadStarted = false
-              })
-          } else {
-            alert('Could not get an upload url, status: ' + res.data.status)
+        axios
+          .post(
+            `https://api.openload.co/1/file/ul?login=98fad8486c4f8310&key=oXQWoeUf&httponly=false`
+          )
+          .then(res => {
+            if (res.data.status === 200) {
+              axios
+                .post(res.data.result.url, formData, {
+                  headers: { 'Content-Type': 'multipart/form-data' }
+                })
+                .then(res => {
+                  console.log(`Successfully Uploaded: ${file.name}`)
+                  // remove the uploaded file from files array
+                  obj.splice(idx, 1)
+                  console.log(`Files array lenght: ${this.files.length}`)
+                })
+                .catch(err => {
+                  console.log(`Cannot upload file ${file.name}, error: ${err}`)
+                  this.uploadStarted = false
+                })
+            } else {
+              alert('Could not get an upload url, status: ' + res.data.status)
+              console.log(res.data)
+              this.uploadStarted = false
+            }
+          })
+          .catch(err => {
+            console.err('Cannot Upload file: ' + file.name)
+            console.err(err)
+            obj.splice(idx, 1)
             this.uploadStarted = false
-          }
-        })
-        .catch(err => {
-          console.log('Error: ' + err.message)
-          this.files = []
-          this.uploadStarted = false
-        })
+          })
+      })
     }
   }
 }
