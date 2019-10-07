@@ -1,16 +1,5 @@
 <template>
   <div class="home">
-    <UploadFile />
+    <h1>This is the honepage page</h1>
   </div>
 </template>
-
-<script>
-import UploadFile from '@/components/UploadFile.vue'
-
-export default {
-  name: 'home',
-  components: {
-    UploadFile
-  }
-}
-</script>
