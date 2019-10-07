@@ -13,19 +13,17 @@
     <table class="table is-bordered is-narrow is-fullwidth">
       <thead>
         <tr>
-          <th>No.</th>
           <th>File Name</th>
           <th>Size (MB)</th>
           <th>Uploaded At</th>
           <th>Downloads</th>
-          <th>X</th>
+          <th>Action</th>
         </tr>
       </thead>
-      <tbody v-for="(file, i) in files" :key="file.name">
+      <tbody v-for="file in files" :key="file.name">
         <tr>
-          <th>{{ i + 1}}</th>
           <td><a :href="file.link" target="_blank">{{ file.name }}</a></td>
-          <td>{{ (file.size / (1024 * 1024)).toString().substring(0, 8) }}</td>
+          <td>{{ (file.size / (1024 * 1024)).toString().substring(0, 4) }}</td>
           <td>{{ new Date(parseInt(file.upload_at)).toLocaleDateString() }}</td>
           <td class="has-text-centered">{{ file.download_count }}</td>
           <td>
