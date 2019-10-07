@@ -1,5 +1,6 @@
 <template>
   <div class="upload-container">
+    <h3 class="subtitle">Upload Files</h3>
     <div class="upload-file has-text-centered" v-cloak @drop.prevent="addFile" @dragover.prevent>
       <div class="prompt has-text-grey" v-show="files.length == 0">
         <h4>Drag & Drop the files here to upload!</h4>
@@ -61,7 +62,7 @@ export default {
           )
           .then(res => {
             if (res.data.status === 200) {
-              console.log('Upload Url: ' + res.data.result.url);
+              console.log('Upload Url: ' + res.data.result.url)
               axios
                 .post(res.data.result.url, formData, {
                   headers: { 'Content-Type': 'multipart/form-data' }
