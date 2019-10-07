@@ -12,8 +12,7 @@
       </ul>
     </div>
     <button
-      class="button is-rounded is-primary"
-      :class="{'is-loading': uploadStarted}"
+      :class="{'button is-rounded is-primary is-loading':uploadStarted, 'button is-rounded is-primary': !uploadStarted}"
       :disabled="uploadDisabled"
       @click="uploadFiles"
     >Upload</button>
@@ -51,8 +50,8 @@ export default {
       })
     },
     uploadFiles () {
-      this.files.forEach((file, idx, obj) => {
       this.uploadStarted = true
+      this.files.forEach((file, idx, obj) => {
         let formData = new FormData()
         formData.set(file.name, file)
 
@@ -69,8 +68,8 @@ export default {
                 .then(res => {
                   console.log(`Successfully Uploaded: ${file.name}`)
                   // remove the uploaded file from files array
-                  obj.splice(idx, 1)
-                  console.log(`Files array lenght: ${this.files.length}`)
+                  obj.splice(obj.indexOf(file), 1)
+                  this.uploadStarted = false
                 })
                 .catch(err => {
                   console.log(`Cannot upload file ${file.name}, error: ${err}`)
@@ -79,6 +78,7 @@ export default {
             } else {
               alert('Could not get an upload url, status: ' + res.data.status)
               console.log(res.data)
+              obj.splice(obj.indexOf(file), 1)
               this.uploadStarted = false
             }
           })
