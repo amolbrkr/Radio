@@ -60,11 +60,21 @@ export default {
         .get(`https://api.openload.co/1/file/delete?login=98fad8486c4f8310&key=oXQWoeUf&file=${fileId}`)
         .then(res => {
           if (res.data.status === 200) {
-            alert('Successfully delete file.')
+            this.$notify({
+              group: 'all',
+              type: 'success',
+              title: 'Delete Successful!',
+              text: `Successfully deleted file: ${fileId}`
+            })
             this.fetchFiles()
           }
         }).catch(err => {
-          alert('Error while deleting file: ' + err)
+          this.$notify({
+            group: 'all',
+            type: 'error',
+            title: 'Delete Failed!',
+            text: `Error while deleting file: ${err}`
+          })
           this.fetchFiles()
         })
     },
@@ -77,9 +87,12 @@ export default {
           if (res.data.status === 200) {
             this.files = res.data.result.files
           } else {
-            alert(
-              `Something went wrong while fetching files! Error Code: ${res.data.status}`
-            )
+            this.$notify({
+              group: 'all',
+              type: 'warn',
+              title: 'Cannot Get files!',
+              text: `Could not get an uploaded url, status code: ${res.data.status}`
+            })
           }
         })
         .catch(err => {

@@ -72,6 +72,12 @@ export default {
                 .then(res => {
                   console.log(`Successfully Uploaded: ${file.name}`)
                   // remove the uploaded file from files array
+                  this.$notify({
+                    group: 'all',
+                    type: 'success',
+                    title: 'Upload Successful!',
+                    text: `${file.name} has been successfully uploaded to Openload servers.`
+                  })
                   obj.splice(obj.indexOf(file), 1)
                   this.uploadStarted = false
                 })
@@ -80,7 +86,12 @@ export default {
                   this.uploadStarted = false
                 })
             } else {
-              alert('Could not get an upload url, status: ' + res.data.status)
+              this.$notify({
+                group: 'all',
+                type: 'error',
+                title: 'Upload Failed!',
+                text: `Could not get an uploaded url, status code: ${res.data.status}`
+              })
               console.log(res.data)
               obj.splice(obj.indexOf(file), 1)
               this.uploadStarted = false
