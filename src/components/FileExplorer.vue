@@ -8,14 +8,17 @@
         </span>
       </button>
     </span>
-    <table class="table">
+    <br />
+    <br />
+    <table class="table is-bordered is-narrow is-fullwidth">
       <thead>
         <tr>
           <th>No.</th>
           <th>File Name</th>
-          <th>Size (Mb)</th>
+          <th>Size (MB)</th>
           <th>Uploaded At</th>
           <th>Downloads</th>
+          <th>X</th>
         </tr>
       </thead>
       <tbody v-for="(file, i) in files" :key="file.name">
@@ -25,6 +28,13 @@
           <td>{{ (file.size / (1024 * 1024)).toString().substring(0, 8) }}</td>
           <td>{{ new Date(parseInt(file.upload_at)).toLocaleDateString() }}</td>
           <td class="has-text-centered">{{ file.download_count }}</td>
+          <td>
+            <button class="button is-small" @click="deleteFile(file.linkextid)">
+              <span class="icon">
+                <i class="material-icons">delete_outline</i>
+              </span>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -45,6 +55,19 @@ export default {
     this.fetchFiles()
   },
   methods: {
+    deleteFile (fileId) {
+      axios
+        .get(`https://api.openload.co/1/file/delete?login=98fad8486c4f8310&key=oXQWoeUf&file=${fileId}`)
+        .then(res => {
+          if (res.data.status === 200) {
+            alert('Successfully delete file.')
+            this.fetchFiles()
+          }
+        }).catch(err => {
+          alert('Error while deleting file: ' + err)
+          this.fetchFiles()
+        })
+    },
     fetchFiles () {
       axios
         .get(
