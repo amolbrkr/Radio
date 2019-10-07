@@ -8,7 +8,9 @@
 
       <ul v-for="(file, i) in files" :key="file.name">
         <li>
-          <span class="is-size-7">{{ i+1 }}. {{ file.name.substring(0, 40) }} | {{ file.size / (1024*1024) }} MB</span>
+          <span class="is-size-7">
+            {{ i+1 }}. {{ file.name.substring(0, 40) }} | {{ file.size / (1024*1024) }} MB
+          </span>
         </li>
       </ul>
     </div>
