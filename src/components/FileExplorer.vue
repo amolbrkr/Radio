@@ -26,7 +26,7 @@
           <td>{{ (file.size / (1024 * 1024)).toString().substring(0, 4) }}</td>
           <td>{{ new Date(parseInt(file.upload_at)).toLocaleDateString() }}</td>
           <td class="has-text-centered">{{ file.download_count }}</td>
-          <td>
+          <td class="has-text-centered">
             <button class="button is-small" @click="deleteFile(file.linkextid)">
               <span class="icon">
                 <i class="material-icons">delete_outline</i>
