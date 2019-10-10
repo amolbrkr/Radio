@@ -1,3 +1,3 @@
-# radio
+# Radio
 
-A music streaming service built with Vue works with Openload
+### A music streaming service built Vue, works on Openload API
