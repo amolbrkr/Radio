@@ -55,7 +55,7 @@ export default {
   methods: {
     deleteFile (fileId) {
       axios
-        .get(`https://api.openload.co/1/file/delete?login=98fad8486c4f8310&key=oXQWoeUf&file=${fileId}`)
+        .get(`https://api.openload.co/1/file/delete?login=${process.env.VUE_APP_API_LOGIN}&key=${process.env.VUE_APP_API_KEY}&file=${fileId}`)
         .then(res => {
           if (res.data.status === 200) {
             this.$notify({
@@ -79,7 +79,7 @@ export default {
     fetchFiles () {
       axios
         .get(
-          `https://api.openload.co/1/file/listfolder?login=98fad8486c4f8310&key=oXQWoeUf`
+          `https://api.openload.co/1/file/listfolder?login=${process.env.VUE_APP_API_LOGIN}&key=${process.env.VUE_APP_API_KEY}`
         )
         .then(res => {
           if (res.data.status === 200) {

@@ -60,11 +60,10 @@ export default {
 
         axios
           .post(
-            `https://api.openload.co/1/file/ul?login=98fad8486c4f8310&key=oXQWoeUf`
+            `https://api.openload.co/1/file/ul?login=${process.env.VUE_APP_API_LOGIN}&key=${process.env.VUE_APP_API_KEY}`
           )
           .then(res => {
             if (res.data.status === 200) {
-              console.log('Upload Url: ' + res.data.result.url)
               axios
                 .post(res.data.result.url, formData, {
                   headers: { 'Content-Type': 'multipart/form-data' }
